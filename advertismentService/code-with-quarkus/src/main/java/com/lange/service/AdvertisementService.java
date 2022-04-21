@@ -4,6 +4,7 @@ package com.lange.service;
 import com.lange.domain.Ads.Advertisement;
 import com.lange.domain.Ads.Category;
 import com.lange.domain.Ads.Mobile;
+import com.lange.domain.Ads.Type;
 import com.lange.persistance.Rep;
 import com.lange.service.requests.CreateAdvertisementRequest;
 import com.lange.service.requests.GetAdvertisementRequest;
@@ -61,6 +62,12 @@ import java.util.List;
             newMap.put(a.getId().getRaw(), a.getHeaderText().getValue());
         }
             return newMap;
+    }
+
+    public HashMap<String, String> createMapWithAdvertisementsFromQuries (Category category, Type type) {
+        List<Advertisement> list = repository.findAdvertisementSByQuries(type, category);
+        HashMap<String, String> map = convertListToMap(list);
+        return  map;
     }
 
 }

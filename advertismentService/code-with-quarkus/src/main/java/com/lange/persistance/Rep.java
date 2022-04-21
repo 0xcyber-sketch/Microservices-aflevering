@@ -63,6 +63,43 @@ public class Rep {
         }
     }
 
+    public List<Advertisement> findAllAdvertisementByType(Type type) {
+        try {
+            return entityManager.createNamedQuery(AdvertisementPO.FIND_BY_TYPE, AdvertisementPO.class)
+                    .setParameter(AdvertisementPO.Type_PARAM, type.name())
+                    .getResultList().stream().map(AdvertisementPO::toAdvertisement).collect(Collectors.toList());
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public List<Advertisement> findAdvertisementSByQuries(Type type, Category category) {
+        try {
+            if (type != null || category != null) {
+                if (type == null) {
+                    return findAllAdvertisementByCategory(category);
+                } else if (category == null) {
+                    return findAllAdvertisementByType(type);
+                }
+                else {
+                    return entityManager.createNamedQuery(AdvertisementPO.FIND_BY_TYPE_AND_CATEGORY, AdvertisementPO.class)
+                            .setParameter(AdvertisementPO.Type_PARAM, type.name())
+                            .setParameter(AdvertisementPO.CATEGORY_PARAM, category.name())
+                            .getResultList().stream().map(AdvertisementPO::toAdvertisement).collect(Collectors.toList());
+                }
+            }
+            else {
+                return getAllAds();
+            }
+        }
+
+        catch (NoResultException e){
+            return null;
+        }
+    }
+
+
+
 }
 
 

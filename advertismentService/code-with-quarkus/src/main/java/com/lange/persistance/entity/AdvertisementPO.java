@@ -11,7 +11,9 @@ import java.util.UUID;
 @NamedQueries({
         @NamedQuery(name = "AdvertisementPO.findAll", query = "Select a FROM AdvertisementPO a"),
         @NamedQuery(name = "AdvertisementPO.findByPhoneNumber", query = "Select a FROM AdvertisementPO a where a.phoneNumber=:phoneNumber"),
-        @NamedQuery(name = "AdvertisementPO.findByCategory", query = "Select a FROM AdvertisementPO a where a.category=:category")
+        @NamedQuery(name = "AdvertisementPO.findByCategory", query = "Select a FROM AdvertisementPO a where a.category=:category"),
+        @NamedQuery(name = "AdvertisementPO.findByType", query = "Select a FROM AdvertisementPO a where a.type=:type"),
+        @NamedQuery(name = "AdvertisementPO.findByTypeAndCategory", query = "Select a FROM AdvertisementPO a where a.type=:type and a.category=:category")
 })
 
 public class AdvertisementPO {
@@ -20,6 +22,9 @@ public class AdvertisementPO {
     public static final String FIND_ALL = "AdvertisementPO.findAll";
     public static final String FIND_BY_CATEGORY = "AdvertisementPO.findByCategory";
     public static final String CATEGORY_PARAM = "category";
+    public static final String FIND_BY_TYPE = "AdvertisementPO.findByType";
+    public static final String Type_PARAM = "type";
+    public static final String FIND_BY_TYPE_AND_CATEGORY = "AdvertisementPO.findByTypeAndCategory";
 
 
     @javax.persistence.Id

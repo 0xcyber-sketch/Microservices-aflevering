@@ -3,11 +3,13 @@ package com.lange.resources.ads;
 import com.lange.domain.Ads.Advertisement;
 import com.lange.domain.Ads.Category;
 import com.lange.domain.Ads.Mobile;
+import com.lange.domain.Ads.Type;
 import com.lange.resources.ads.dto.AdvertisementDTO;
 import com.lange.resources.ads.dto.CreateAdDTO;
 import com.lange.service.AdvertisementService;
 import com.lange.service.requests.GetAdvertisementRequest;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -75,5 +77,18 @@ public class AdvertisementResource {
         GetAdvertisementRequest request = new GetAdvertisementRequest(id);
         Advertisement advertisement = advertisementService.get(request);
         return Response.ok().entity(advertisement).build();
+    }
+
+    @Path("/advertisement/all")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @PermitAll
+    //@RolesAllowed({"USER", "ADMIN", "SUPER_USER"})
+    //Test needs to be all caps e.g. ?category=CAR
+    public Response getAdsFromQueries(@QueryParam("category") Category category, @QueryParam("type") Type type) {
+
+        HashMap<String,String> map = advertisementService.createMapWithAdvertisementsFromQuries(category, type);
+        List<Map.Entry<String,String>> mapList = map.entrySet().stream().toList();
+        return Response.ok().entity(mapList).build();
     }
 }
