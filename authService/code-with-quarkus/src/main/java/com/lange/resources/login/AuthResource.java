@@ -77,7 +77,6 @@ public class AuthResource {
     public Response checkLoggedIn() {
         // Something about get token check UUID
         // If value is null return signed out else get user
-
         String jwtString = jwt.getClaim(Claims.preferred_username);
 
         if (jwtString != null) {

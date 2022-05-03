@@ -14,7 +14,7 @@ function ShowAdvertismentsList(props) {
                 
             })
         }).catch(console.log("Error"))
-    }, [advertisements])
+    }, [])
     if (props.loggedin) {
         if (!advertisements.length > 0) {
             return (
